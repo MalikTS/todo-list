@@ -1,48 +1,352 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Todo List</h1>
-            <button id="logout-btn" class="hidden">Выйти</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f8fa" />
+    <title>Фокус — ваши задачи</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="/static/script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">К содержимому</a>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="/" aria-label="Фокус — главная"
+          ><span class="brand-mark">ф</span>фокус<span class="accent"
+            >.</span
+          ></a
+        >
+        <div class="workspace-label">ЛИЧНОЕ ПРОСТРАНСТВО</div>
+        <nav aria-label="Разделы задач">
+          <button class="nav-item active" data-filter="all" aria-pressed="true">
+            <span data-icon="layers"></span>Все задачи
+            <span class="nav-count" id="nav-all">0</span>
+          </button>
+          <button class="nav-item" data-filter="active" aria-pressed="false">
+            <span data-icon="circle"></span>В процессе
+            <span class="nav-count" id="nav-active">0</span>
+          </button>
+          <button class="nav-item" data-filter="completed" aria-pressed="false">
+            <span data-icon="check"></span>Завершённые
+            <span class="nav-count" id="nav-completed">0</span>
+          </button>
+        </nav>
+        <div class="sidebar-note">
+          <span class="note-spark">✳</span>
+          <h3>Маленькие шаги.<br />Большие перемены.</h3>
+          <p>Освободите мысли для важного. Остальное — в список.</p>
+          <div class="note-line"></div>
+        </div>
+        <div class="profile">
+          <span class="avatar" id="avatar">Ф</span>
+          <div>
+            <strong id="profile-name">Ваше пространство</strong
+            ><span id="profile-caption">Начните с первой задачи</span>
+          </div>
+          <button
+            id="logout-btn"
+            class="icon-button hidden"
+            title="Выйти"
+            aria-label="Выйти из аккаунта"
+            data-icon="logout"
+          ></button>
+        </div>
+      </aside>
+      <main id="main">
+        <header class="topbar">
+          <span
+            >Мой план <span class="breadcrumb">/</span>
+            <strong id="page-breadcrumb">Добро пожаловать</strong></span
+          ><span id="today"></span>
         </header>
-
-        <section id="auth-section">
-            <div class="tabs">
-                <button id="tab-login" class="active">Вход</button>
-                <button id="tab-register">Регистрация</button>
+        <section id="auth-section" class="auth-layout">
+          <div class="auth-intro">
+            <span class="eyebrow"><i></i> МЕНЬШЕ ШУМА. БОЛЬШЕ ЯСНОСТИ.</span>
+            <h1>
+              Всё важное.<br />В одном <span class="accent">фокусе.</span>
+            </h1>
+            <p class="intro-description">
+              Планы становятся проще, когда у каждой задачи есть своё место.
+              Создайте пространство, в котором приятно двигаться вперёд.
+            </p>
+            <div class="preview-board" aria-hidden="true">
+              <div class="preview-heading">
+                <span data-icon="sun"></span
+                ><strong>Хороший день начинается с плана</strong><span>✳</span>
+              </div>
+              <div class="preview-row">
+                <span class="preview-check">✓</span
+                ><span class="struck">Освободить мысли</span
+                ><span class="small-tag">Готово</span>
+              </div>
+              <div class="preview-row">
+                <span class="preview-check">✓</span
+                ><span class="struck">Выбрать главное</span>
+              </div>
+              <div class="preview-row">
+                <span class="preview-circle"></span
+                ><span>Сделать первый шаг</span>
+              </div>
+              <div class="preview-footer">
+                <span>Каждая галочка — маленькая победа</span><span>2 / 3</span>
+              </div>
             </div>
-
+            <div class="intro-bottom">
+              <span data-icon="check"></span> Просто начать. Приятно продолжать.
+            </div>
+          </div>
+          <div class="auth-card">
+            <div class="card-symbol" data-icon="arrow"></div>
+            <h2 id="auth-title">С возвращением</h2>
+            <p id="auth-description">Ваши планы уже ждут вас.</p>
+            <div class="tabs" aria-label="Способ входа">
+              <button id="tab-login" class="active" aria-pressed="true">
+                Вход</button
+              ><button id="tab-register" aria-pressed="false">
+                Регистрация
+              </button>
+            </div>
             <form id="login-form">
-                <input type="text" id="login-username" placeholder="Имя пользователя" required>
-                <input type="password" id="login-password" placeholder="Пароль" required>
-                <button type="submit">Войти</button>
+              <label for="login-username">Имя пользователя</label
+              ><input
+                type="text"
+                id="login-username"
+                placeholder="Например, alex"
+                autocomplete="username"
+                required
+              /><label for="login-password">Пароль</label>
+              <div class="password-field">
+                <input
+                  type="password"
+                  id="login-password"
+                  placeholder="Введите пароль"
+                  autocomplete="current-password"
+                  required
+                /><button
+                  type="button"
+                  class="password-toggle icon-button"
+                  data-target="login-password"
+                  aria-label="Показать пароль"
+                  aria-pressed="false"
+                  data-icon="eye"
+                ></button>
+              </div>
+              <button type="submit" class="primary-button">
+                Войти в пространство <span data-icon="arrow"></span>
+              </button>
             </form>
-
             <form id="register-form" class="hidden">
-                <input type="text" id="reg-username" placeholder="Имя пользователя" required>
-                <input type="password" id="reg-password" placeholder="Пароль" required>
-                <button type="submit">Зарегистрироваться</button>
+              <label for="reg-username">Имя пользователя</label
+              ><input
+                type="text"
+                id="reg-username"
+                placeholder="Как к вам обращаться?"
+                autocomplete="username"
+                required
+              /><label for="reg-password">Пароль</label>
+              <div class="password-field">
+                <input
+                  type="password"
+                  id="reg-password"
+                  placeholder="Придумайте пароль"
+                  autocomplete="new-password"
+                  required
+                /><button
+                  type="button"
+                  class="password-toggle icon-button"
+                  data-target="reg-password"
+                  aria-label="Показать пароль"
+                  aria-pressed="false"
+                  data-icon="eye"
+                ></button>
+              </div>
+              <button type="submit" class="primary-button">
+                Создать аккаунт <span data-icon="arrow"></span>
+              </button>
             </form>
-            
-            <p id="auth-error" class="error-message"></p>
+            <p
+              id="auth-error"
+              class="form-message"
+              role="status"
+              aria-live="polite"
+            ></p>
+            <div class="auth-footnote">
+              <span data-icon="lock"></span> Ваш список виден только вам
+            </div>
+          </div>
         </section>
-
-        <section id="tasks-section" class="hidden">
-            <form id="task-form">
-                <input type="text" id="new-task-title" placeholder="Новая задача" required>
-                <button type="submit">Добавить</button>
-            </form>
-            <ul id="tasks-list"></ul>
+        <section
+          id="tasks-section"
+          class="dashboard hidden"
+          aria-label="Задачи"
+        >
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow">ШАГ ЗА ШАГОМ К ГЛАВНОМУ</span>
+              <h1 id="task-heading">Все задачи<span class="accent">.</span></h1>
+              <p>Освободите голову. Соберите планы здесь.</p>
+            </div>
+            <button
+              id="focus-new-task"
+              class="primary-button"
+              aria-label="Новая задача"
+            >
+              <span data-icon="plus"></span> Новая задача
+            </button>
+          </div>
+          <div class="stats">
+            <div class="stat-card">
+              <span class="stat-icon neutral" data-icon="layers"></span>
+              <div>
+                <span>Всего задач</span><strong id="stat-total">0</strong>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon orange" data-icon="circle"></span>
+              <div>
+                <span>В процессе</span><strong id="stat-active">0</strong>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon green" data-icon="check"></span>
+              <div>
+                <span>Завершено</span><strong id="stat-completed">0</strong>
+              </div>
+            </div>
+          </div>
+          <div class="task-columns">
+            <div class="task-panel">
+              <div class="panel-title">
+                <h2>Мой список</h2>
+                <span id="result-count" class="muted"></span>
+              </div>
+              <form id="task-form" class="task-composer">
+                <span data-icon="plus"></span
+                ><label class="sr-only" for="new-task-title">Новая задача</label
+                ><input
+                  type="text"
+                  id="new-task-title"
+                  placeholder="Что нужно сделать?"
+                  required
+                  maxlength="500"
+                  autocomplete="off"
+                /><button
+                  class="add-button"
+                  type="submit"
+                  aria-label="Добавить задачу"
+                  title="Добавить задачу"
+                >
+                  <span data-icon="arrow"></span>
+                </button>
+              </form>
+              <div class="list-toolbar">
+                <div class="filter-tabs" aria-label="Фильтр задач">
+                  <button data-filter="all" class="active" aria-pressed="true">
+                    Все</button
+                  ><button data-filter="active" aria-pressed="false">
+                    В процессе</button
+                  ><button data-filter="completed" aria-pressed="false">
+                    Готово
+                  </button>
+                </div>
+                <label class="search-field"
+                  ><span data-icon="search"></span
+                  ><input
+                    id="search-tasks"
+                    type="search"
+                    placeholder="Поиск задач"
+                    aria-label="Поиск задач"
+                /></label>
+              </div>
+              <div id="task-error" class="task-error hidden" role="alert">
+                <span id="task-error-text"></span
+                ><button id="retry-btn" class="text-button">Повторить</button>
+              </div>
+              <div id="loading-state" class="empty-state hidden" role="status">
+                <span class="spinner"></span>
+                <h3>Собираем ваши планы…</h3>
+              </div>
+              <ul id="tasks-list" aria-label="Список задач"></ul>
+              <div id="empty-state" class="empty-state hidden">
+                <span class="empty-symbol" data-icon="clipboard"></span>
+                <h3 id="empty-title">Место для новых планов</h3>
+                <p id="empty-description">
+                  Добавьте первую задачу — большой путь начинается с маленького
+                  шага.
+                </p>
+                <button id="empty-add" class="text-button">
+                  Добавить задачу ↗
+                </button>
+              </div>
+              <div class="list-footer">
+                <span id="list-summary">Всё начинается с первой задачи</span
+                ><span class="keyboard-hint"><kbd>N</kbd> новая задача</span>
+              </div>
+            </div>
+            <aside class="insights">
+              <section class="progress-card">
+                <div class="panel-title">
+                  <h2>Ваш прогресс</h2>
+                  <span data-icon="chart"></span>
+                </div>
+                <div id="progress-ring" class="progress-ring">
+                  <div>
+                    <strong id="progress-value">0%</strong
+                    ><span>выполнено</span>
+                  </div>
+                </div>
+                <h3 id="progress-title">Начало чего-то хорошего</h3>
+                <p id="progress-description">
+                  Добавьте задачу и сделайте первый шаг.
+                </p>
+                <div class="progress-legend">
+                  <span>● Готово</span
+                  ><strong id="progress-fraction">0 из 0</strong>
+                </div>
+              </section>
+              <section class="tip-card">
+                <span class="eyebrow">МИНУТКА ВДОХНОВЕНИЯ</span
+                ><span class="tip-spark" aria-hidden="true">✳</span>
+                <h3>Не всё сразу.<br />Одно за другим.</h3>
+                <p>
+                  Выберите одну небольшую задачу и начните с неё. Движение
+                  важнее идеального плана.
+                </p>
+              </section>
+            </aside>
+          </div>
+          <footer class="page-footer">
+            <span>Чуть больше порядка. Чуть меньше суеты.</span
+            ><span
+              >Сделано для вашего фокуса <span class="accent">✳</span></span
+            >
+          </footer>
         </section>
+      </main>
     </div>
-
-    <script src="script.js"></script>
-</body>
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <dialog id="edit-dialog">
+      <form id="edit-form">
+        <div class="dialog-heading">
+          <h2>Редактировать задачу</h2>
+          <button
+            type="button"
+            id="close-edit"
+            class="icon-button"
+            aria-label="Закрыть"
+            data-icon="x"
+          ></button>
+        </div>
+        <label for="edit-title">Название задачи</label
+        ><input id="edit-title" required maxlength="500" autocomplete="off" />
+        <p id="edit-error" class="form-message" role="alert"></p>
+        <div class="dialog-actions">
+          <button type="button" id="cancel-edit" class="secondary-button">
+            Отмена</button
+          ><button type="submit" class="primary-button">Сохранить</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
 </html>

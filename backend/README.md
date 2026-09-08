@@ -93,3 +93,8 @@ backend/
 http://127.0.0.1:8000/docs
 ```
 ```
+
+
+
+
+uvicorn app.main:app --reload --port 8001
