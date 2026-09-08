@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Todo List</h1>
+            <button id="logout-btn" class="hidden">Выйти</button>
+        </header>
+
+        <section id="auth-section">
+            <div class="tabs">
+                <button id="tab-login" class="active">Вход</button>
+                <button id="tab-register">Регистрация</button>
+            </div>
+
+            <form id="login-form">
+                <input type="text" id="login-username" placeholder="Имя пользователя" required>
+                <input type="password" id="login-password" placeholder="Пароль" required>
+                <button type="submit">Войти</button>
+            </form>
+
+            <form id="register-form" class="hidden">
+                <input type="text" id="reg-username" placeholder="Имя пользователя" required>
+                <input type="password" id="reg-password" placeholder="Пароль" required>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+            
+            <p id="auth-error" class="error-message"></p>
+        </section>
+
+        <section id="tasks-section" class="hidden">
+            <form id="task-form">
+                <input type="text" id="new-task-title" placeholder="Новая задача" required>
+                <button type="submit">Добавить</button>
+            </form>
+            <ul id="tasks-list"></ul>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

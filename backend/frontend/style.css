@@ -1,0 +1,132 @@
+:root {
+    --bg-color: #f4f4f4;
+    --container-bg: #ffffff;
+    --text-color: #333333;
+    --border-color: #cccccc;
+    --primary-btn: #555555;
+    --primary-btn-hover: #333333;
+    --error-color: #8b0000;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    margin: 0;
+}
+
+.container {
+    background-color: var(--container-bg);
+    padding: 30px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+h1 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: normal;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.tabs button {
+    flex: 1;
+    padding: 10px;
+    background: none;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.tabs button.active {
+    background-color: var(--primary-btn);
+    color: white;
+    border-color: var(--primary-btn);
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+button[type="submit"], #logout-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-btn);
+    color: white;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover, #logout-btn:hover {
+    background-color: var(--primary-btn-hover);
+}
+
+#logout-btn {
+    width: auto;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: 14px;
+    margin-top: 10px;
+    min-height: 16px;
+}
+
+#tasks-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#tasks-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.task-actions button {
+    background: none;
+    border: 1px solid var(--border-color);
+    padding: 2px 6px;
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--text-color);
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #888888;
+}
